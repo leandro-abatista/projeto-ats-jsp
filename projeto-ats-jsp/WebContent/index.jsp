@@ -51,7 +51,7 @@
 	
 	</div>
 	
-	 <script type="text/javascript">
+	 <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js">
 		
 	    (function () {
 	  	  'use strict'
