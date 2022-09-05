@@ -1,0 +1,27 @@
+body{
+	background-image: url("../img/eletrocardiograma.jpg");/*Caminho correto*/
+}
+
+.card{
+	background: #00CED1;
+	width: 500px;
+	left: 32%;
+	margin-top: 10%;
+	font-weight: bold;
+	border-radius: 6px;
+	box-shadow: -0.4em 0 0.4em #0000FF;
+}
+
+.card input, label, passord{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.card h3{
+	text-align: center;
+	padding: 5px;
+}
+
+.card-body{
+	background: #E0FFFF;
+}
