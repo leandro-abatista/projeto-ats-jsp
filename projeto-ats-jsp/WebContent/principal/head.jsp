@@ -29,4 +29,5 @@
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/style.css">
+      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/style-cad-usuario.css">
   </head>
