@@ -16,6 +16,15 @@ public class Usuario extends GenericDomain {
 	public Usuario() {
 		
 	}
+	
+	public boolean isNovoUser() {
+		if (id == null) {
+			return true;/*Inseri um novo id*/
+		} else if(id != null && id > 0) {
+			return false;/*Atualiza um id existente*/
+		}
+		return id == null;
+	}
 
 	public String getNome() {
 		return nome;
@@ -65,10 +74,6 @@ public class Usuario extends GenericDomain {
 		this.dataCadastro = dataCadastro;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", login=" + login + ", senha=" + senha
-				+ ", dataCadastro=" + dataCadastro + "]";
-	}
+	
 
 }

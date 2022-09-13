@@ -21,12 +21,13 @@
 		<div class="card-body">
 			<h4 class="msgErro">Ops, Ocorreu um erro!!</h4>
 			<h5 class="card-title">Entre em contato com a equipe de suporte do sistema.</h5>
-			<textarea class="form-control" id="message" cols="30" rows="5"></textarea>
+			<textarea class="form-control" id="message" cols="30" rows="5">${msg}</textarea>
 		</div>
 
 		<div class="card-footer">
 			<div class="d-grid gap-2 botao">
-				<button id="botaoEntrar" type="submit" class="btn btn-danger">Voltar à página inicial</button>
+				<a id="botaoEntrar" type="submit" href="<%= request.getContextPath() %>/principal/principal.jsp"
+				 class="btn btn-danger">Voltar à página inicial</a>
 			</div>
 		</div>
 	</div>

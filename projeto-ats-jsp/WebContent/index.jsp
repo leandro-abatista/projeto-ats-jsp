@@ -7,11 +7,16 @@
 
 <!-- Bootstrap css -->
 <link rel="stylesheet"  href="resources/css/bootstrap.min.css">
-<link rel="stylesheet"  href="resources/css/styles.css">
-<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+<link rel="stylesheet"  href="<%= request.getContextPath() %>/resources/css/styles.css">
+<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/notify.min.js"></script>
 <title>Sistema ATS</title>
 </head>
 <body>
+	
+	<div id="mensagem">
+		<span>${msg}</span>
+	</div>
 
 	<div class="card">
 	
@@ -19,8 +24,11 @@
 	
 		<div class="card-body">
 		
-			<form id="formUserAut"
+			<form id="formUserAut" method="post"
+				action="<%= request.getContextPath() %>/ServletLogin"
 				class="row g-3 needs-validation" novalidate>
+				
+				<input type="hidden" value="<%= request.getParameter("url") %>">
 				
 				<div class="mb-3">
 					<label for="login" class="form-label">Login:</label> 
@@ -42,7 +50,8 @@
 				</div>
 				
 				<div class="d-grid gap-2">
-					<input id="botaoEntrar" type="submit" value="Acessar" class="btn btn-primary">
+					<input id="botaoEntrar" type="submit" onclick="mostrarMensagem()" value="Acessar" class="btn btn-primary">
+					<input id="botaoFechar" onclick="fecharPag()" value="Fechar" class="btn btn-danger">
 				</div>
 			
 			</form>
@@ -51,7 +60,14 @@
 	
 	</div>
 	
-	 <script type="text/javascript" src="resources/js/bootstrap.bundle.min.js">
+	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+	 <script src="resources/js/bootstrap.bundle.min.js"></script>	
+	 <script type="text/javascript">
+
+	 	var mensagem = $('#mensagem').val();
+		if (mensagem != null) {
+			$.notify('#mensagem', "info");
+		}
 		
 	    (function () {
 	  	  'use strict'
@@ -73,6 +89,30 @@
 	  	    })
 	  	})()
 	  	
+	  	function mostrarMensagem() {
+		  	var login = document.getElementById('login').value;
+		  	var senha = document.getElementById('senha').value;
+
+		  	if (login == null || login == '') {
+				swal('Mensagem','Informe o login!', {icon: "warning"});
+				login.focus();
+			} else if(senha == null || senha == ''){
+				swal('Mensagem','Informe a senha!', {icon: "warning"});
+			}
+
+		}
+
+	    function fecharPag() {
+		  	
+			swal('Mensagem','Tem certeza que deseja fechar o sistema?',{
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+				buttons: ["Não desejo fechar!", "Sim, fechar a página!"]
+			});
+		}
+
+		
     </script>
 
 </body>

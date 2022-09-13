@@ -1,5 +1,6 @@
 body{
 	background-image: url("../img/eletrocardiograma.jpg");/*Caminho correto*/
+	background-repeat: no-repeat;
 }
 
 .card{

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!-- Required Jquery -->
+	<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.maskedinput-1.1.4.pack.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/assets/js/jquery-ui/jquery-ui.min.js "></script>
     <script type="text/javascript" src="<%= request.getContextPath() %>/assets/js/popper.js/popper.min.js"></script>

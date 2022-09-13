@@ -22,7 +22,7 @@ public class FilterAutenticacao extends HttpFilter implements Filter {
 	private static Connection connection;
 	private String urlPagLogin = "/principal/ServletLogin";
 	private String urlPagInicial = "/index.jsp";
-	private String urlPagErro = "error.jsp";
+	private String urlPagErro = "/error.jsp";
 
 	/**
 	 * Construtor padrão da classe

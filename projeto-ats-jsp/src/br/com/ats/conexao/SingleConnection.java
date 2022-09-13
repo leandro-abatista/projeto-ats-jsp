@@ -3,12 +3,14 @@ package br.com.ats.conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
 public class SingleConnection {
 
 	private static String urlBanco = "jdbc:postgresql://127.0.0.1:5433/banco_ats_jsp?autoReconnect=true";
 	private static String user = "postgres";
 	private static String password = "1234";
 	private static Connection connection = null;
+	
 	
 	static {
 		conectar();
