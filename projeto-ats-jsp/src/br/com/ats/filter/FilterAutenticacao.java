@@ -8,6 +8,7 @@ import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.ats.conexao.SingleConnection;
 
+@WebFilter(urlPatterns = {"/principal/*"})
 public class FilterAutenticacao extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;
