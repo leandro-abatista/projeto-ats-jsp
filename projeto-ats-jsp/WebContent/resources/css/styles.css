@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body{
 	background-image: url("../img/eletrocardiograma.jpg");/*Caminho correto*/
 	background-repeat: no-repeat;
+	font-family: 'Roboto', sans-serif;
 }
 
 .card{
@@ -11,6 +14,7 @@ body{
 	font-weight: bold;
 	border-radius: 6px;
 	box-shadow: -0.4em 0 0.4em #00CED1;
+	font-family: 'Roboto', sans-serif;
 }
 
 .card input, label, passord{
