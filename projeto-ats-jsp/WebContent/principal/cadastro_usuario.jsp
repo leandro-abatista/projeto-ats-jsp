@@ -143,6 +143,7 @@
 
 <script src="resources/js/bootstrap.bundle.min.js"></script>
 <script src="<%= request.getContextPath() %>/resources/js/jquery.maskedinput-1.1.4.pack.js"></script>	
+<script src="<%= request.getContextPath() %>/resources/js/notify.min.js"></script>	
 <script type="text/javascript">
 
 	$(document).ready(function () {
@@ -152,6 +153,8 @@
 	var mensagem = $('#mensagem').val();
 	if (mensagem != null) {
 		$.notify('#mensagem', "info");
+	} else if(mensagem == null && mensagem == '') {
+		$.notify('Nenhuma mensagem!', "info");
 	}
 
 	function limparFormulario() {

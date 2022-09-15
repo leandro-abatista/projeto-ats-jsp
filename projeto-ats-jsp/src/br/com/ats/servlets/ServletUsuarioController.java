@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,12 +59,22 @@ public class ServletUsuarioController extends HttpServlet {
 			objetoUsuario.setSenha(senha);
 			objetoUsuario.setDataCadastro(Timestamp.valueOf(LocalDateTime.now()));
 			
-			objetoUsuario = repository.salvar(objetoUsuario);
-		
+			if (repository.validarLogin(objetoUsuario.getLogin()) && objetoUsuario.getId() == null) {
+				request.setAttribute("msg", msgAlerta);
+			} else {
+
+				if (objetoUsuario.isNovoUser()) {
+					request.setAttribute("msg", msgSucesso);
+				} else {
+					request.setAttribute("msg", msgUpdate);
+				}
+				objetoUsuario = repository.salvar(objetoUsuario);
+			}
+			
 			/*Após salvar, a página redirecionada novamente para a página de cadastro*/
-			request.setAttribute("msg", msgSucesso);
+			RequestDispatcher redireciona = request.getRequestDispatcher(urlPagCadastroUser);
 			request.setAttribute("objetoUsuario", objetoUsuario);
-			request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
+			redireciona.forward(request, response);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
