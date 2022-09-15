@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import br.com.ats.classes.entities.Usuario;
 import br.com.ats.dao.DaoAutenticacaoRepository;
 
-@WebServlet(urlPatterns = {"/principa/ServletLogin", "/ServletLogin"})
+@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,6 +28,7 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String msg = "Usuário deslogado com sucesso!";
 		String acao = request.getParameter("acao");
 		
 		/**
@@ -36,6 +37,7 @@ public class ServletLogin extends HttpServlet {
 		 * autenticação
 		 */
 		if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
+			request.setAttribute("msg", msg);
 			request.getSession().invalidate();/*Invalida a sessão, exclui os dados do usuário logado na sessão*/
 			request.getRequestDispatcher(urlPagInicial).forward(request, response);
 		} else {
