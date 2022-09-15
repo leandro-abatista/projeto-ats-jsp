@@ -14,7 +14,8 @@
                               <div class="main-menu-content">
                                   <ul>
                                       <li class="more-details">
-                                          <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Sair do sistema</a>
+                                          <a href="<%= request.getContextPath()%>/ServletLogin?acao=logout">
+                                          	<i class="ti-layout-sidebar-left"></i>Sair do sistema</a>
                                       </li>
                                   </ul>
                               </div>
