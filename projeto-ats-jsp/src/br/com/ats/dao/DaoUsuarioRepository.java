@@ -95,6 +95,22 @@ public class DaoUsuarioRepository {
 		return false;
 	}
 	
+	public boolean validarCpf(String cpf) throws Exception {
+		
+		String sql = "SELECT COUNT(1) > 0 AS existe "
+				+ " FROM public.usuario" + 
+				" WHERE cpf = ?;";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, cpf);
+		
+		ResultSet resultado = statement.executeQuery();
+		if (resultado.next()) {/*Se tiver algum resultado*/
+			return resultado.getBoolean("existe");
+		}
+		
+		return false;
+	}
+	
 	public void deletar(Long idObjetoUsuario) throws Exception {
 		
 		String sql = "DELETE FROM public.usuario" + 
