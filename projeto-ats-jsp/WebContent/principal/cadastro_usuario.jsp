@@ -49,11 +49,14 @@
 												<form id="formUser" action="<%= request.getContextPath()%>/ServletUsuarioController"
 													method="post">
 													
+													<input type="hidden" id="acao" name="acao" value="">
+													
 													<div class="card-block">
 													
 														<div class="form-group">
 															<button type="button" id="botaoPesquisar"
-																class="btn btn-info waves-effect waves-light botao">Pesquisar</button>
+																class="btn btn-info waves-effect waves-light botao"
+																data-bs-toggle="modal" href="#modalToggle" role="button">Pesquisar</button>
 														</div>
 													
 														<div class="form-group row">
@@ -139,6 +142,66 @@
 	</div>
 
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
+	
+	<!-- Início Modal 1 -->
+	<div class="modal fade" id="modalToggle" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #B0C4DE">
+					<h5 class="modal-title" id="exampleModalToggleLabel">Pesquisa de Usuário</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- corpo da página -->
+					<div class="input-group mb-3">
+						<input type="text" class="form-control"
+							placeholder="Informe o nome para pesquisar"
+							aria-label="Informe o nome para pesquisar"
+							aria-describedby="button-addon2"
+							style="font-size: 16px" id="nomeBusca">
+							
+						<button class="btn btn-success waves-effect waves-light"
+							type="button" id="button-addon2" onclick="buscarUsuario();">Buscar</button>
+					</div>
+
+					<!-- tabela de dados -->
+					<div style="height: 20rem; overflow: scroll;">
+						<table id="tabelaUsuarioResultados" class="table table-primary table-hover">
+							<thead><!-- cabeçalho da tabela -->
+								<tr>
+									<th scope="col">Código</th>
+									<th scope="col">Nome</th>
+									<th scope="col">CPF</th>
+									<th scope="col">Ver</th>
+								</tr>
+							</thead>
+							<tbody><!-- dados da tabela -->
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+					</div>
+					<!-- corpo da página -->
+				</div>
+				
+				<nav aria-label="Page navigation example">
+						<ul id="ulPaginacaoUserAjax" class="pagination pagination-sm justify-content-center">
+
+						</ul>
+					</nav>
+				
+				<div style="font-size: 16px; margin-left: 15px;">
+					<!-- total de registros buscados -->
+					<p id="totalResultados"></p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- fim Modal 1  -->
 </body>
 
 <script src="resources/js/bootstrap.bundle.min.js"></script>
