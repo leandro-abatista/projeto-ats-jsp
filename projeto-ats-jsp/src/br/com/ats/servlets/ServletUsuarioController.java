@@ -31,6 +31,10 @@ public class ServletUsuarioController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		
+		//String acao = request.getParameter("acao");
+		doPost(request, response);
+		
+		
 
 	}
 
@@ -41,7 +45,6 @@ public class ServletUsuarioController extends HttpServlet {
 			
 			String msgSucesso = "Operação realizada com sucesso!";
 			String msgUpdate = "Registro atualizado com sucesso!";
-			String msgAlerta = "Já existe um usuário com o mesmo login, digite um login válido!";
 	
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
@@ -59,20 +62,27 @@ public class ServletUsuarioController extends HttpServlet {
 			objetoUsuario.setSenha(senha);
 			objetoUsuario.setDataCadastro(Timestamp.valueOf(LocalDateTime.now()));
 			
+			String msg = null;
+			
 			if (repository.validarLogin(objetoUsuario.getLogin()) && objetoUsuario.getId() == null) {
-				request.setAttribute("msg", msgAlerta);
+				msg = "Já existe um usuário com o mesmo login, digite um login válido!";
+			} else if(repository.validarCpf(objetoUsuario.getCpf()) && objetoUsuario.getId() == null) {
+				msg = "Este CPF já estar cadastrado para outro usuário!";
 			} else {
 
 				if (objetoUsuario.isNovoUser()) {
-					request.setAttribute("msg", msgSucesso);
+					msg = msgSucesso;
 				} else {
-					request.setAttribute("msg", msgUpdate);
+					msg = msgUpdate;
 				}
+				
 				objetoUsuario = repository.salvar(objetoUsuario);
 			}
-			
+			/*Seta a mensagem na tela*/
+			request.setAttribute("msg", msg);
 			/*Após salvar, a página redirecionada novamente para a página de cadastro*/
 			RequestDispatcher redireciona = request.getRequestDispatcher(urlPagCadastroUser);
+			/*Seta os dados do objeto usuário na tela*/
 			request.setAttribute("objetoUsuario", objetoUsuario);
 			redireciona.forward(request, response);
 		
