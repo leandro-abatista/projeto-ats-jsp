@@ -54,9 +54,9 @@
 													<div class="card-block">
 													
 														<div class="form-group">
-															<button type="button" id="botaoPesquisar"
-																class="btn btn-info waves-effect waves-light botao"
-																data-bs-toggle="modal" href="#modalToggle" role="button">Pesquisar</button>
+															<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#dialog">
+																 Pesquisar
+															</button>
 														</div>
 													
 														<div class="form-group row">
@@ -72,15 +72,15 @@
 															<label for="nome" class="form-control-label">Nome:</label>
 															<div class="col-md-6">
 																<input id="nome" type="text" name="nome" class="form-control" 
-																	maxlength="120" required="required" 
-																	value="${objetoUsuario.nome}">
+																	maxlength="120"  
+																	value="${objetoUsuario.nome}" required="required">
 															</div>
 															
 															<label for="cpf" class="form-control-label">CPF:</label>
 															<div class="col-md-3">
 																<input id="cpf" type="text" name="cpf" class="form-control" 
-																	maxlength="14" required="required" 
-																	value="${objetoUsuario.cpf}">
+																	maxlength="14"  
+																	value="${objetoUsuario.cpf}" required="required">
 															</div>	
 														</div>
 														
@@ -88,8 +88,8 @@
 															<label for="email" class="form-control-label">E-mail:</label> 
 															<div class="col-md-6">
 																<input type="email" name="email" class="form-control"
-																	id="email" autocomplete="off" required="required" 
-																	value="${objetoUsuario.email}">
+																	id="email" autocomplete="off"  
+																	value="${objetoUsuario.email}" required="required">
 															</div>
 														</div>
 														
@@ -97,15 +97,15 @@
 															<label for="login" class="form-control-label">Login:</label>
 															<div class="col-md-5">
 																<input id="login" type="text" name="login" class="form-control" 
-																	maxlength="50" autocomplete="off" required="required" 
-																	value="${objetoUsuario.login}">
+																	maxlength="50" autocomplete="off"  
+																	value="${objetoUsuario.login}" required="required">
 															</div>
 													
 															<label for="senha" class="form-control-label">Senha:</label>
 															<div class="col-md-4">
 																<input id="senha" type="password" name="senha" class="form-control" 
-																	maxlength="10" autocomplete="off" required="required" 
-																	value="${objetoUsuario.senha}">
+																	maxlength="10" autocomplete="off" 
+																	value="${objetoUsuario.senha}" required="required">
 															</div>
 														</div>
 													</div>
@@ -119,7 +119,7 @@
 														<button type="button"  
 															class="btn btn-danger waves-effect waves-light botao">Excluir</button>
 														
-														<button type="submit"
+														<button type="submit" 
 															class="btn btn-success waves-effect waves-light botao">Salvar</button>
 															
 													</div>
@@ -143,8 +143,26 @@
 
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
 	
+	<!-- Modal -->
+	<div class="modal fade" id="teste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel">Pesquisar Usuário</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<!-- Início Modal 1 -->
-	<div class="modal fade" id="modalToggle" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
+	<div class="modal fade" id="dialog" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header" style="background-color: #B0C4DE">
@@ -185,12 +203,12 @@
 				</div>
 				
 				<nav aria-label="Page navigation example">
-						<ul id="ulPaginacaoUserAjax" class="pagination pagination-sm justify-content-center">
+					<ul id="ulPaginacaoUserAjax" class="pagination pagination-sm justify-content-center">
 
-						</ul>
-					</nav>
+				 	</ul>
+				</nav>
 				
-				<div style="font-size: 16px; margin-left: 15px;">
+				<div style="font-size: 14px; margin-left: 15px;">
 					<!-- total de registros buscados -->
 					<p id="totalResultados"></p>
 				</div>
@@ -202,11 +220,14 @@
 		</div>
 	</div>
 	<!-- fim Modal 1  -->
+	
+	
 </body>
 
-<script src="resources/js/bootstrap.bundle.min.js"></script>
+<script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
 <script src="<%= request.getContextPath() %>/resources/js/jquery.maskedinput-1.1.4.pack.js"></script>	
-<script src="<%= request.getContextPath() %>/resources/js/notify.min.js"></script>	
+<script src="<%= request.getContextPath() %>/resources/js/notify.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 <script type="text/javascript">
 
 	$(document).ready(function () {
@@ -227,6 +248,10 @@
 		}
 
 		document.getElementById('nome').focus();
+	}
+
+	
+
 	}
 
 	

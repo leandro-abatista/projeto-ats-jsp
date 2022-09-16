@@ -19,7 +19,7 @@ public class ServletLogin extends HttpServlet {
 	
 	private DaoAutenticacaoRepository repository = new DaoAutenticacaoRepository();
 	
-	private String urlPagPrincipal = "/principal/principal.jsp";
+	private String urlPagPrincipal = "principal/principal.jsp";
 	private String urlPagError = "error.jsp";
 	private String urlPagInicial = "/index.jsp";
        

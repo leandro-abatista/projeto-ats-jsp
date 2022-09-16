@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap css -->
-<link rel="stylesheet"  href="resources/css/bootstrap.min.css">
+<link rel="stylesheet"  href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css">
 <link rel="stylesheet"  href="<%= request.getContextPath() %>/resources/css/styles.css">
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/notify.min.js"></script>
@@ -61,7 +61,7 @@
 	</div>
 	
 	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-	 <script src="resources/js/bootstrap.bundle.min.js"></script>	
+	 <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>	
 	 <script type="text/javascript">
 
 	 	var mensagem = $('#mensagem').val();
