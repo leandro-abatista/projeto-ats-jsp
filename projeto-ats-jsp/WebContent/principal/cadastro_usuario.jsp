@@ -108,7 +108,7 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 															class="btn btn-primary waves-effect waves-light botao">Novo</button>
 															
 														<button type="button"  
-															class="btn btn-danger waves-effect waves-light botao">Excluir</button>
+															class="btn btn-danger waves-effect waves-light botao" onclick="criarDeleteComAjax()">Excluir</button>
 														
 														<button type="submit" 
 															class="btn btn-success waves-effect waves-light botao">Salvar</button>
@@ -248,6 +248,53 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 		}
 
 		document.getElementById('nome').focus();
+	}
+
+	function criarDeleteComAjax() {
+
+		swal({
+			  title: "Mensagem de Alerta",
+			  text: "Deseja realmente excluir os dados?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+
+				var urlAction = document.getElementById('formUser').action;
+				var idUser = document.getElementById('id').value;
+
+				$.ajax({
+					method: "GET",
+					url: urlAction,
+					data: "id=" + idUser + "&acao=deletarUserComAjax",
+					success: function (response) {
+						limparFormulario();/*limpa os campos do formulário*/
+						swal("Registro excluído com sucesso!", {icon: "success"});
+					}
+				}).fail(function (xhr, status, errorThrown) {
+					swal("Ocorreu um erro ao tentar deletar o registro!", {icon: "error"});
+				})
+				
+			    
+			  } else {
+			    swal("Operação cancelada!", {icon: "error"});
+			  }
+			})
+	}
+
+	function buscarUsuario() {
+		var nomeBusca = document.getElementById('nomeBusca').value;
+
+		if (nomeBusca == null || nomeBusca == '') {
+			$.notify('Informe um nome no campo de busca para que seja realizada a pesquisa no banco de dados!', "info");
+		}
+
+		/*Validando o nomeBusca para buscar no banco de dados*/
+		if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
+			alert(nomeBusca);
+		}
 	}
 
 </script>
