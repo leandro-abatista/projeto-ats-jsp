@@ -34,17 +34,16 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 									<!-- Page-body start -->
 									<div class="page-body">
 										<div class="row">
-										
-
-											<div class="card-block">
-												<h3 class="sub-title titulo1">[ Cadastro de Usuário ]</h3>
-												
-												<div id="mensagem">
-													<span>${msg}</span>
-												</div>
-											</div>
 											
 											<div class="card">
+											
+												<div class="card-block">
+													<h3 class="sub-title titulo1">[ Cadastro de Usuário ]</h3>
+													
+													<div id="mensagem">
+														<span>${msg}</span>
+													</div>
+												</div>
 												
 												<form id="formUser" action="<%= request.getContextPath()%>/ServletUsuarioController"
 													method="post">
@@ -52,12 +51,6 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 													<input type="hidden" id="acao" name="acao" value="">
 													
 													<div class="card-block">
-													
-														<div class="form-group">
-															<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#dialog">
-																 Pesquisar
-															</button>
-														</div>
 													
 														<div class="form-group row">
 															<label for="id" class="form-control-label">Código:</label>
@@ -120,6 +113,9 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 														<button type="submit" 
 															class="btn btn-success waves-effect waves-light botao">Salvar</button>
 															
+														<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#dialog">
+																 Pesquisar
+														</button>
 													</div>
 														
 													</div><!-- fim do card-block -->
@@ -149,7 +145,9 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel">Pesquisar Usuário</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
 	      </div>
 	      <div class="modal-body">
 	        ...
@@ -167,7 +165,9 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 			<div class="modal-content">
 				<div class="modal-header" style="background-color: #B0C4DE">
 					<h5 class="modal-title" id="exampleModalToggleLabel">Pesquisa de Usuário</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
 				</div>
 				<div class="modal-body">
 					<!-- corpo da página -->
@@ -183,8 +183,8 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 					</div>
 
 					<!-- tabela de dados -->
-					<div style="height: 20rem; overflow: scroll;">
-						<table id="tabelaUsuarioResultados" class="table table-primary table-hover">
+					<div style="height: 20rem; overflow: scroll; ">
+						<table id="tabelaUsuarioResultados" class="table table-success table-hover">
 							<thead><!-- cabeçalho da tabela -->
 								<tr>
 									<th scope="col">Código</th>

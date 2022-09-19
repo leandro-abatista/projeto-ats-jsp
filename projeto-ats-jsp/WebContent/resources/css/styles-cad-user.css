@@ -1,0 +1,21 @@
+
+.card{
+	width: 1080px;
+}
+
+label {
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+input, password {
+	margin-right: 15px;
+}
+
+.card-block titulo1 {
+	font-size: 18px;
+}
+
+.card-block {
+	
+}
