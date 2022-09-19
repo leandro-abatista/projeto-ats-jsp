@@ -81,6 +81,29 @@ public class DaoUsuarioRepository {
 		return objetoUsuario;
 	}
 	
+	public Usuario consultarPorId(String idUser) throws Exception {
+		
+		Usuario objetoUsuario = new Usuario();
+		
+		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
+				"  FROM public.usuario"
+				+ " WHERE id = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, Long.parseLong(idUser));
+		
+		ResultSet resultado = statement.executeQuery();
+		if (resultado.next()) {/*Se tiver algum resultado*/
+			objetoUsuario.setId(resultado.getLong("id"));
+			objetoUsuario.setNome(resultado.getString("nome"));
+			objetoUsuario.setCpf(resultado.getString("cpf"));
+			objetoUsuario.setEmail(resultado.getString("email"));
+			objetoUsuario.setLogin(resultado.getString("login"));
+			objetoUsuario.setSenha(resultado.getString("senha"));
+		}
+		
+		return objetoUsuario;
+	}
+	
 	public List<Usuario> buscarPorNome(String nome) throws Exception {
 		
 		List<Usuario> listaUsuarios = new ArrayList<>();
