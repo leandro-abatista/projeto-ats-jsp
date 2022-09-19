@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
@@ -108,10 +108,8 @@
 																	value="${objetoUsuario.senha}" required="required">
 															</div>
 														</div>
-													</div>
-													
-													
-													<div class="form-group">
+														
+														<div class="form-group">
 													
 														<button type="button" onclick="limparFormulario()" 
 															class="btn btn-primary waves-effect waves-light botao">Novo</button>
@@ -123,6 +121,8 @@
 															class="btn btn-success waves-effect waves-light botao">Salvar</button>
 															
 													</div>
+														
+													</div><!-- fim do card-block -->
 												
 												</form>
 												
@@ -250,11 +250,6 @@
 		document.getElementById('nome').focus();
 	}
 
-	
-
-	}
-
-	
 </script>
 
 </html>

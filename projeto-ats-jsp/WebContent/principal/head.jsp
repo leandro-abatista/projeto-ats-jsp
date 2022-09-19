@@ -2,6 +2,7 @@
 
 <head>
     <title>Sistema ATS</title>
+    
       <!-- Meta -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -29,6 +30,5 @@
       <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/style.css">
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/style-cad-usuario.css">
       <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css">
   </head>

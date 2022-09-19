@@ -23,7 +23,11 @@ public class ServletLogin extends HttpServlet {
 	private String urlPagError = "error.jsp";
 	private String urlPagInicial = "/index.jsp";
        
+	/**
+	 * Construtor padrão
+	 */
     public ServletLogin() {
+    	
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
