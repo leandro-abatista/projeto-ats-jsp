@@ -67,15 +67,29 @@ public class ServletUsuarioController extends HttpServlet {
 					String json = objectMapper.writeValueAsString(dadosJsonUser);
 					
 					response.getWriter().write(json);
+			} else
+				
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
+
+				String idUser = request.getParameter("id");
+				
+				Usuario objetoUsuario = repository.consultarPorId(idUser);
+				
+				/* Seta a mensagem na tela */
+				request.setAttribute("msg", "Registro em edição!");
+				/* Seta os dados do objeto usuário na tela */
+				request.setAttribute("objetoUsuario", objetoUsuario);
+				/* Após salvar, a página redirecionada novamente para a página de cadastro */
+				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
 			}
 			
 			else {
-				request.getRequestDispatcher("principal/cadastro_usuario.jsp").forward(request, response);
+				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher(urlPagError).forward(request, response);
 		}
 
 	}
