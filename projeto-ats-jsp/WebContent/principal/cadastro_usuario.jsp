@@ -281,9 +281,10 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 			  } else {
 			    swal("Operação cancelada!", {icon: "error"});
 			  }
-			})
+			});
 	}
 
+	/*Método para buscar os dados do objeto usuário*/
 	function buscarUsuario() {
 		var nomeBusca = document.getElementById('nomeBusca').value;
 
@@ -307,7 +308,7 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 					/*Usando o jquery*/
 					$('#tabelaUserModal > tbody > tr').remove();
 					for (var p = 0; p < json.length; p++) {
-						$('#tabelaUserModal > tbody').append('<tr> <td>'+json[p].id+'</td> <td>'+json[p].nome+'</td> <td>'+json[p].cpf+'</td> <td><button type="button" class="btn btn-primary">Visualizar</button></td> </tr>')
+						$('#tabelaUserModal > tbody').append('<tr> <td>'+json[p].id+'</td> <td>'+json[p].nome+'</td> <td>'+json[p].cpf+'</td> <td><button type="button" onclick="verEditar('+json[p].id+')" class="btn btn-primary">Visualizar</button></td> </tr>')
 					}
 					document.getElementById('totalResultados').textContent = 'Total de resultados encontrados na busca: ' + json.length;
 					limparCampoNomeBusca();
@@ -320,9 +321,18 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 		}
 	}
 
+	/*Método para limpar o campo de busca, após a busca ser realizada e carregar os dados no modal*/
 	function limparCampoNomeBusca() {
 		document.getElementById('nomeBusca').value = '';
 		document.getElementById('nomeBusca').focus();
+	}
+
+	function verEditar(id) {
+
+		var urlAction = document.getElementById('formUser').action;
+		
+		window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
+
 	}
 
 </script>
