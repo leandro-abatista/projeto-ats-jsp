@@ -160,10 +160,10 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	</div>
 	
 	<!-- Início Modal 1 -->
-	<div class="modal fade" id="dialog" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
+	<div class="modal fade bd-example-modal-lg" id="dialog" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
-				<div class="modal-header" style="background-color: #B0C4DE">
+				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalToggleLabel">Pesquisa de Usuário</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
@@ -184,13 +184,13 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
 					<!-- tabela de dados -->
 					<div style="height: 20rem; overflow: scroll; ">
-						<table id="tabelaUsuarioResultados" class="table table-success table-hover">
+						<table id="tabelaUserModal" class="table table-success table-hover">
 							<thead><!-- cabeçalho da tabela -->
 								<tr>
-									<th scope="col">Código</th>
+									<th scope="col" style="width: 60px">Código</th>
 									<th scope="col">Nome</th>
 									<th scope="col">CPF</th>
-									<th scope="col">Ver</th>
+									<th scope="col">Opções</th>
 								</tr>
 							</thead>
 							<tbody><!-- dados da tabela -->
@@ -208,7 +208,7 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 				 	</ul>
 				</nav>
 				
-				<div style="font-size: 14px; margin-left: 15px;">
+				<div style="font-size: 14px; margin-left: 15px; font-weight: 500">
 					<!-- total de registros buscados -->
 					<p id="totalResultados"></p>
 				</div>
@@ -265,7 +265,7 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 				var urlAction = document.getElementById('formUser').action;
 				var idUser = document.getElementById('id').value;
 
-				$.ajax({
+				$.ajax({/*Método ajax*/
 					method: "GET",
 					url: urlAction,
 					data: "id=" + idUser + "&acao=deletarUserComAjax",
@@ -275,7 +275,7 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 					}
 				}).fail(function (xhr, status, errorThrown) {
 					swal("Ocorreu um erro ao tentar deletar o registro!", {icon: "error"});
-				})
+				});
 				
 			    
 			  } else {
@@ -293,8 +293,36 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
 		/*Validando o nomeBusca para buscar no banco de dados*/
 		if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
-			alert(nomeBusca);
+
+			var urlAction = document.getElementById('formUser').action;
+			
+			$.ajax({/*Método ajax*/
+				method: "GET",
+				url: urlAction,
+				data: "nomeBusca=" + nomeBusca + "&acao=buscarUserComAjax",
+				success: function (response) {
+
+					var json = JSON.parse(response);
+
+					/*Usando o jquery*/
+					$('#tabelaUserModal > tbody > tr').remove();
+					for (var p = 0; p < json.length; p++) {
+						$('#tabelaUserModal > tbody').append('<tr> <td>'+json[p].id+'</td> <td>'+json[p].nome+'</td> <td>'+json[p].cpf+'</td> <td><button type="button" class="btn btn-primary">Visualizar</button></td> </tr>')
+					}
+					document.getElementById('totalResultados').textContent = 'Total de resultados encontrados na busca: ' + json.length;
+					limparCampoNomeBusca();
+					
+				}
+			
+			}).fail(function (xhr, status, errorThrown) {
+				swal("Ocorreu um erro ao tentar buscar registro por nome!", {icon: "error"});
+			});
 		}
+	}
+
+	function limparCampoNomeBusca() {
+		document.getElementById('nomeBusca').value = '';
+		document.getElementById('nomeBusca').focus();
 	}
 
 </script>
