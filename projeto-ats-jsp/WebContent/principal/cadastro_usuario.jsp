@@ -146,10 +146,10 @@
 																	<td><c:out value="${user.nome}"></c:out></td>
 																	<td><c:out value="${user.cpf}"></c:out></td>
 																	<td>
-																		<button type="button" 
+																		<a href="<%= request.getContextPath() %>/ServletUsuarioController?acao=buscarEditar&id=${user.id}" 
 																			class="btn btn-dark waves-effect waves-light">
 																			<i class="fa fa-user"></i>	
-																		</button>
+																		</a>
 																		
 																		<button type="button"  
 																			class="btn btn-dark waves-effect waves-light">
