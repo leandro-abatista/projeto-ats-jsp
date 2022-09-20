@@ -131,6 +131,31 @@ public class DaoUsuarioRepository {
 		return listaUsuarios;
 	}
 	
+	public List<Usuario> consultaUserList() throws Exception {
+		
+		List<Usuario> listaUsuarios = new ArrayList<>();
+		
+		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
+				"  FROM public.usuario";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultado = statement.executeQuery();
+		while (resultado.next()) {/*Enquanto tiver resultados*/
+			Usuario objetoUsuario = new Usuario();
+			objetoUsuario.setId(resultado.getLong("id"));
+			objetoUsuario.setNome(resultado.getString("nome"));
+			objetoUsuario.setCpf(resultado.getString("cpf"));
+			objetoUsuario.setEmail(resultado.getString("email"));
+			objetoUsuario.setLogin(resultado.getString("login"));
+			objetoUsuario.setDataCadastro(resultado.getTimestamp("data_cadastro"));
+			//objetoUsuario.setSenha(resultado.getString("senha"));
+			
+			listaUsuarios.add(objetoUsuario);
+		}
+		
+		return listaUsuarios;
+	}
+	
 	public boolean validarLogin(String login) throws Exception {
 		
 		String sql = "SELECT COUNT(1) > 0 AS existe "
