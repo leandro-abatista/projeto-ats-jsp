@@ -87,7 +87,8 @@ public class DaoUsuarioRepository {
 		
 		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
 				"  FROM public.usuario"
-				+ " WHERE id = ?";
+				+ " WHERE id = ?"
+				+ " AND useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, Long.parseLong(idUser));
 		
@@ -110,7 +111,8 @@ public class DaoUsuarioRepository {
 		
 		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
 				"  FROM public.usuario"
-				+ " WHERE UPPER(nome) LIKE UPPER(?)";
+				+ " WHERE UPPER(nome) LIKE UPPER(?)"
+				+ " AND useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
 		
@@ -136,7 +138,8 @@ public class DaoUsuarioRepository {
 		List<Usuario> listaUsuarios = new ArrayList<>();
 		
 		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
-				"  FROM public.usuario";
+				"  FROM public.usuario "
+				+ " WHERE useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		ResultSet resultado = statement.executeQuery();
@@ -191,7 +194,8 @@ public class DaoUsuarioRepository {
 	public void deletar(Long idObjetoUsuario) throws Exception {
 		
 		String sql = "DELETE FROM public.usuario" + 
-				" WHERE id = ?";
+				" WHERE id = ?"
+				+ " AND useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, idObjetoUsuario);
 		
