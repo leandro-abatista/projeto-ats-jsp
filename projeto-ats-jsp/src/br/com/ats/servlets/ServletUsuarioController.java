@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.ats.classes.entities.Usuario;
 import br.com.ats.dao.DaoUsuarioRepository;
 
-@WebServlet(urlPatterns = { "/ServletUsuarioController" })
+@WebServlet(urlPatterns = { "/ServletUsuarioController"})
 public class ServletUsuarioController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -79,6 +79,18 @@ public class ServletUsuarioController extends HttpServlet {
 				request.setAttribute("msg", "Registro em edição!");
 				/* Seta os dados do objeto usuário na tela */
 				request.setAttribute("objetoUsuario", objetoUsuario);
+				/* Após salvar, a página redirecionada novamente para a página de cadastro */
+				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
+			} else 
+			
+			if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
+				
+				List<Usuario> listaUsers = repository.consultaUserList();
+				
+				/* Seta a mensagem na tela */
+				request.setAttribute("msg", "Usuários carregados!");
+				/* Seta os dados do objeto usuário na tela */
+				request.setAttribute("listaUsers", listaUsers);
 				/* Após salvar, a página redirecionada novamente para a página de cadastro */
 				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
 			}
