@@ -1,5 +1,6 @@
-pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="pt_BR">
@@ -119,9 +120,59 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 													</div>
 														
 													</div><!-- fim do card-block -->
-												
+
 												</form>
 												
+											</div>
+
+											<div class="card tabela">
+												<!-- tabela de dados -->
+												<div style="height: 20rem; overflow: scroll;">
+													<table id="tabelaUser"
+														class="table table-success table-hover">
+														<thead>
+															<!-- cabeçalho da tabela -->
+															<tr>
+																<th scope="col" style="width: 60px">Código</th>
+																<th scope="col">Nome</th>
+																<th scope="col">CPF</th>
+																<th scope="col">Opções</th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${listaUsers}" var="user">
+																<tr>
+																	<td><c:out value="${user.id}"></c:out></td>
+																	<td><c:out value="${user.nome}"></c:out></td>
+																	<td><c:out value="${user.cpf}"></c:out></td>
+																	<td>
+																		<button type="button" 
+																			class="btn btn-dark waves-effect waves-light">
+																			<i class="fa fa-user"></i>	
+																		</button>
+																		
+																		<button type="button"  
+																			class="btn btn-dark waves-effect waves-light">
+																			<i class="fa fa-trash"></i>	
+																		</button>
+																		
+																		<button type="button"  
+																			class="btn btn-dark waves-effect waves-light">
+																			<i class="fa fa-pencil-square-o"></i>
+																		</button>
+																		
+																		<button type="button"  
+																			class="btn btn-dark waves-effect waves-light">
+																			<i class="fa fa-print"></i>	
+																		</button>
+																	</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+														<tfoot>
+														</tfoot>
+													</table>
+												</div>
 											</div>
 
 										</div>
@@ -234,13 +285,6 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 		$('#cpf').mask('999.999.999-99');
 	});
 
-	var mensagem = $('#mensagem').val();
-	if (mensagem != null) {
-		$.notify('#mensagem', "info");
-	} else if(mensagem == null && mensagem == '') {
-		$.notify('Nenhuma mensagem!', "info");
-	}
-
 	function limparFormulario() {
 		var elementosHtml = document.getElementById('formUser').elements;
 		for (var posicao = 0; posicao < elementosHtml.length; posicao++) {
@@ -253,8 +297,8 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	function criarDeleteComAjax() {
 
 		swal({
-			  title: "Mensagem de Alerta",
-			  text: "Deseja realmente excluir os dados?",
+			  title: "Mensagem de Confirmação",
+			  text: "Deseja realmente excluir o registro selecionado?",
 			  icon: "warning",
 			  buttons: true,
 			  dangerMode: true,
@@ -328,11 +372,9 @@ pci<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	}
 
 	function verEditar(id) {
-
-		var urlAction = document.getElementById('formUser').action;
 		
+		var urlAction = document.getElementById('formUser').action;
 		window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
-
 	}
 
 </script>
