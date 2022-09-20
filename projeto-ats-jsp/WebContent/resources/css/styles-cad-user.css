@@ -16,6 +16,6 @@ input, password {
 	font-size: 18px;
 }
 
-.card-block {
-	
+#tabelaUser {
+	padding: 10px;
 }
