@@ -43,6 +43,10 @@ public class ServletUsuarioController extends HttpServlet {
 
 				repository.deletar(Long.parseLong(idUser));
 				
+				List<Usuario> listaUsers = repository.consultaUserList();
+				
+				request.setAttribute("listaUsers", listaUsers);
+				
 				request.setAttribute("msg", "registro excluído com sucesso!");
 				request.getRequestDispatcher("principal/cadastro_usuario.jsp").forward(request, response);
 			} else
@@ -75,6 +79,9 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				Usuario objetoUsuario = repository.consultarPorId(idUser);
 				
+				List<Usuario> listaUsers = repository.consultaUserList();
+				request.setAttribute("listaUsers", listaUsers);
+				
 				/* Seta a mensagem na tela */
 				request.setAttribute("msg", "Registro em edição!");
 				/* Seta os dados do objeto usuário na tela */
@@ -89,13 +96,17 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				/* Seta a mensagem na tela */
 				request.setAttribute("msg", "Usuários carregados!");
-				/* Seta os dados do objeto usuário na tela */
+				
 				request.setAttribute("listaUsers", listaUsers);
-				/* Após salvar, a página redirecionada novamente para a página de cadastro */
+				
 				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
 			}
 			
 			else {
+				
+				List<Usuario> listaUsers = repository.consultaUserList();
+				request.setAttribute("listaUsers", listaUsers);
+				
 				request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);
 			}
 
@@ -146,14 +157,17 @@ public class ServletUsuarioController extends HttpServlet {
 
 				objetoUsuario = repository.salvar(objetoUsuario);
 			}
+			
+			List<Usuario> listaUsers = repository.consultaUserList();
+			request.setAttribute("listaUsers", listaUsers);
+			
+			/* Seta os dados do objeto usuário na tela */
+			request.setAttribute("objetoUsuario", objetoUsuario);
 			/* Seta a mensagem na tela */
 			request.setAttribute("msg", msg);
 			/* Após salvar, a página redirecionada novamente para a página de cadastro */
-			RequestDispatcher redireciona = request.getRequestDispatcher(urlPagCadastroUser);
-			/* Seta os dados do objeto usuário na tela */
-			request.setAttribute("objetoUsuario", objetoUsuario);
-			redireciona.forward(request, response);
-
+			request.getRequestDispatcher(urlPagCadastroUser).forward(request, response);;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("msg", e.getMessage());
