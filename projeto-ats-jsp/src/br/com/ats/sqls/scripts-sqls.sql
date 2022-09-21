@@ -12,3 +12,11 @@ create table usuario(
 
 INSERT INTO usuario(nome, cpf, email, login, senha, data_cadastro) 
 VALUES('administrador', '000.000.000-00', 'admin@gmail.com','admin','admin','2022-09-05 11:00:00');
+
+-- criando o campo useradmin
+alter table usuario add column useradmin boolean not null default false;
+
+-- criando a chave para controle de usuário
+alter table usuario add column usuario_id bigint not null default 1;
+
+alter table usuario add constraint usuario_fk foreign key(usuario_id) references usuario(id);

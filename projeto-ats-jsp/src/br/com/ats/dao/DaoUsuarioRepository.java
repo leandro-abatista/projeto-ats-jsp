@@ -3,8 +3,6 @@ package br.com.ats.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +17,13 @@ public class DaoUsuarioRepository {
 		connection = SingleConnection.getConnection();
 	}
 	
-	public Usuario salvar(Usuario objeto) throws Exception {
+	public Usuario salvar(Usuario objeto, Long userLogado) throws Exception {
 		
 		if (objeto.isNovoUser()) {
 			
-			String sql = "INSERT INTO public.usuario(" + 
-					"    nome, cpf, email, login, senha, data_cadastro)" + 
-					"    VALUES (?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO public.usuario(" 
+					+ "   nome, cpf, email, login, senha, data_cadastro, usuario_id)" 
+					+ "   VALUES (?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, objeto.getNome());
 			statement.setString(2, objeto.getCpf());
@@ -33,6 +31,7 @@ public class DaoUsuarioRepository {
 			statement.setString(4, objeto.getLogin());
 			statement.setString(5, objeto.getSenha());
 			statement.setTimestamp(6, objeto.getDataCadastro());
+			statement.setLong(7, userLogado);
 			
 			statement.execute();
 			connection.commit();
@@ -53,20 +52,71 @@ public class DaoUsuarioRepository {
 			connection.commit();
 		}
 		
-		return this.consultar(objeto.getLogin(), objeto.getCpf());
+		return this.consultar(objeto.getLogin(), userLogado);
 	}
 	
-	public Usuario consultar(String login, String cpf) throws Exception {
+	public Usuario buscarUsuarioLogado(String login) throws Exception {
 		
 		Usuario objetoUsuario = new Usuario();
 		
-		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
-				"  FROM public.usuario"
-				+ " WHERE UPPER(login) = UPPER(?)"
-				+ " OR cpf = ?";
+		String sql = "SELECT "
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id " 
+				+ " FROM public.usuario"
+				+ " WHERE UPPER(login) = UPPER(?)";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, "" + login + "");
+		
+		ResultSet resultado = statement.executeQuery();
+		if (resultado.next()) {/*Se tiver algum resultado*/
+			objetoUsuario.setId(resultado.getLong("id"));
+			objetoUsuario.setNome(resultado.getString("nome"));
+			objetoUsuario.setCpf(resultado.getString("cpf"));
+			objetoUsuario.setEmail(resultado.getString("email"));
+			objetoUsuario.setLogin(resultado.getString("login"));
+			objetoUsuario.setSenha(resultado.getString("senha"));
+		}
+		
+		return objetoUsuario;
+	}
+	
+	public Usuario consultar(String login) throws Exception {
+		
+		Usuario objetoUsuario = new Usuario();
+		
+		String sql = "SELECT "
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ " FROM public.usuario"
+				+ " WHERE UPPER(login) = UPPER(?)";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, "" + login + "");
+		
+		ResultSet resultado = statement.executeQuery();
+		if (resultado.next()) {/*Se tiver algum resultado*/
+			objetoUsuario.setId(resultado.getLong("id"));
+			objetoUsuario.setNome(resultado.getString("nome"));
+			objetoUsuario.setCpf(resultado.getString("cpf"));
+			objetoUsuario.setEmail(resultado.getString("email"));
+			objetoUsuario.setLogin(resultado.getString("login"));
+			objetoUsuario.setSenha(resultado.getString("senha"));
+			objetoUsuario.setUseradmin(resultado.getBoolean("useradmin"));
+		}
+		
+		return objetoUsuario;
+	}
+	
+	public Usuario consultar(String login, Long userLogado) throws Exception {
+		
+		Usuario objetoUsuario = new Usuario();
+		
+		String sql = "SELECT "
+				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ " FROM public.usuario "
+				+ " WHERE UPPER(login) = UPPER(?) "
+				+ " AND useradmin is false "
+				+ "	AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, objetoUsuario.getLogin());
-		statement.setString(2, objetoUsuario.getCpf());
+		statement.setLong(2, userLogado);
 		
 		ResultSet resultado = statement.executeQuery();
 		if (resultado.next()) {/*Se tiver algum resultado*/
@@ -81,16 +131,19 @@ public class DaoUsuarioRepository {
 		return objetoUsuario;
 	}
 	
-	public Usuario consultarPorId(String idUser) throws Exception {
+	public Usuario consultarPorId(String idUser, Long userLogado) throws Exception {
 		
 		Usuario objetoUsuario = new Usuario();
 		
-		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
-				"  FROM public.usuario"
-				+ " WHERE id = ?"
-				+ " AND useradmin is false";
+		String sql = "SELECT "
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ "  FROM public.usuario "
+				+ " WHERE id = ? "
+				+ " AND useradmin is false "
+				+ " AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, Long.parseLong(idUser));
+		statement.setLong(2, userLogado);
 		
 		ResultSet resultado = statement.executeQuery();
 		if (resultado.next()) {/*Se tiver algum resultado*/
@@ -105,16 +158,19 @@ public class DaoUsuarioRepository {
 		return objetoUsuario;
 	}
 	
-	public List<Usuario> buscarPorNome(String nome) throws Exception {
+	public List<Usuario> buscarPorNome(String nome, Long userLogado) throws Exception {
 		
 		List<Usuario> listaUsuarios = new ArrayList<>();
 		
-		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
-				"  FROM public.usuario"
-				+ " WHERE UPPER(nome) LIKE UPPER(?)"
-				+ " AND useradmin is false";
+		String sql = "SELECT "
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ "  FROM public.usuario "
+				+ " WHERE UPPER(nome) LIKE UPPER(?) "
+				+ " AND useradmin is false "
+				+ " AND usuario_id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%" + nome + "%");
+		statement.setLong(2, userLogado);
 		
 		ResultSet resultado = statement.executeQuery();
 		while (resultado.next()) {/*Enquanto tiver resultados*/
@@ -133,13 +189,15 @@ public class DaoUsuarioRepository {
 		return listaUsuarios;
 	}
 	
-	public List<Usuario> consultaUserList() throws Exception {
+	public List<Usuario> consultaUserList(Long userLogado) throws Exception {
 		
 		List<Usuario> listaUsuarios = new ArrayList<>();
 		
-		String sql = "SELECT id, nome, cpf, email, login, senha, data_cadastro" + 
-				"  FROM public.usuario "
-				+ " WHERE useradmin is false";
+		String sql = "SELECT "
+				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ " FROM public.usuario "
+				+ " WHERE useradmin is false "
+				+ " AND usuario_id = " + userLogado;
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		ResultSet resultado = statement.executeQuery();
@@ -163,7 +221,7 @@ public class DaoUsuarioRepository {
 		
 		String sql = "SELECT COUNT(1) > 0 AS existe "
 				+ " FROM public.usuario" + 
-				" WHERE UPPER(login) = UPPER(?);";
+				" WHERE UPPER(login) = UPPER(?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, login);
 		
@@ -179,7 +237,7 @@ public class DaoUsuarioRepository {
 		
 		String sql = "SELECT COUNT(1) > 0 AS existe "
 				+ " FROM public.usuario" + 
-				" WHERE cpf = ?;";
+				" WHERE cpf = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, cpf);
 		

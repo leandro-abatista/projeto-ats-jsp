@@ -146,20 +146,17 @@
 																	<td><c:out value="${user.nome}"></c:out></td>
 																	<td><c:out value="${user.cpf}"></c:out></td>
 																	<td>
-																		<a href="<%= request.getContextPath() %>/ServletUsuarioController?acao=buscarEditar&id=${user.id}" 
-																			class="btn btn-dark waves-effect waves-light">
-																			<i class="fa fa-user"></i>	
-																		</a>
 																		
-																		<button type="button"  
+																		<button id="botaoExcluir"  
+																			onclick="deleteUser()"
 																			class="btn btn-dark waves-effect waves-light">
 																			<i class="fa fa-trash"></i>	
 																		</button>
 																		
-																		<button type="button"  
+																		<a href="<%= request.getContextPath() %>/ServletUsuarioController?acao=buscarEditar&id=${user.id}"  
 																			class="btn btn-dark waves-effect waves-light">
 																			<i class="fa fa-pencil-square-o"></i>
-																		</button>
+																		</a>
 																		
 																		<button type="button"  
 																			class="btn btn-dark waves-effect waves-light">
@@ -190,25 +187,6 @@
 
 	<jsp:include page="javascriptfile.jsp"></jsp:include>
 	
-	<!-- Modal -->
-	<div class="modal fade" id="teste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="staticBackdropLabel">Pesquisar Usuário</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        ...
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 	
 	<!-- Início Modal 1 -->
 	<div class="modal fade bd-example-modal-lg" id="dialog" aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
@@ -352,7 +330,7 @@
 					/*Usando o jquery*/
 					$('#tabelaUserModal > tbody > tr').remove();
 					for (var p = 0; p < json.length; p++) {
-						$('#tabelaUserModal > tbody').append('<tr> <td>'+json[p].id+'</td> <td>'+json[p].nome+'</td> <td>'+json[p].cpf+'</td> <td><button type="button" onclick="verEditar('+json[p].id+')" class="btn btn-primary">Visualizar</button></td> </tr>')
+						$('#tabelaUserModal > tbody').append('<tr> <td>'+json[p].id+'</td> <td>'+json[p].nome+'</td> <td>'+json[p].cpf+'</td> <td><button type="button" onclick="verEditar('+json[p].id+')" class="btn btn-primary"><i class="fa fa-pencil-square-o"></button></td> </tr>')
 					}
 					document.getElementById('totalResultados').textContent = 'Total de resultados encontrados na busca: ' + json.length;
 					limparCampoNomeBusca();
@@ -376,6 +354,14 @@
 		var urlAction = document.getElementById('formUser').action;
 		window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
 	}
+
+	function deleteUser() {
+		
+		if (confirm('Deseja realmente excluir este registro?')) {
+			
+		}
+	}
+
 
 </script>
 

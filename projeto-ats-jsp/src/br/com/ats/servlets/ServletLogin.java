@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import br.com.ats.classes.entities.Usuario;
 import br.com.ats.dao.DaoAutenticacaoRepository;
+import br.com.ats.dao.DaoUsuarioRepository;
 
 @WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})
 public class ServletLogin extends HttpServlet {
@@ -18,6 +19,7 @@ public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private DaoAutenticacaoRepository repository = new DaoAutenticacaoRepository();
+	private DaoUsuarioRepository repositoryUsuario = new DaoUsuarioRepository();
 	
 	private String urlPagPrincipal = "principal/principal.jsp";
 	private String urlPagError = "error.jsp";
@@ -68,8 +70,11 @@ public class ServletLogin extends HttpServlet {
 				/*Autenticando os parâmetros no banco de dados*/
 				if (repository.validarAutenticacao(objetoUsuario)) {
 					
+					objetoUsuario = repositoryUsuario.consultar(login);
+					
 					/*Pegando os atributos do objeto usuário e matendo o usuário logado na sessão*/
 					request.getSession().setAttribute("usuario", objetoUsuario.getLogin());
+					request.getSession().setAttribute("isAdmin", objetoUsuario.isUseradmin());
 					
 					if (url == null || url.equals("null")) {
 						url = urlPagPrincipal;

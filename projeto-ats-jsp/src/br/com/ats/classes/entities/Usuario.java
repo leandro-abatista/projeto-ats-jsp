@@ -13,6 +13,8 @@ public class Usuario extends GenericDomain {
 	private String senha;
 	private Timestamp dataCadastro;
 	
+	private boolean useradmin;
+	
 	public Usuario() {
 		
 	}
@@ -24,6 +26,14 @@ public class Usuario extends GenericDomain {
 			return false;/*Atualiza um id existente*/
 		}
 		return id == null;
+	}
+	
+	public boolean isUseradmin() {
+		return useradmin;
+	}
+	
+	public void setUseradmin(boolean useradmin) {
+		this.useradmin = useradmin;
 	}
 
 	public String getNome() {
