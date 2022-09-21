@@ -20,3 +20,6 @@ alter table usuario add column useradmin boolean not null default false;
 alter table usuario add column usuario_id bigint not null default 1;
 
 alter table usuario add constraint usuario_fk foreign key(usuario_id) references usuario(id);
+
+-- criando o campo de perfil para controlar o acesso ao sistema
+alter table usuario add column perfil character varying(30) default 'Auxiliar';

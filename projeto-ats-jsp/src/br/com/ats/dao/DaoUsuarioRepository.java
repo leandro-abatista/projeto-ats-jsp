@@ -22,8 +22,8 @@ public class DaoUsuarioRepository {
 		if (objeto.isNovoUser()) {
 			
 			String sql = "INSERT INTO public.usuario(" 
-					+ "   nome, cpf, email, login, senha, data_cadastro, usuario_id)" 
-					+ "   VALUES (?, ?, ?, ?, ?, ?, ?);";
+					+ "   nome, cpf, email, login, senha, data_cadastro, usuario_id, perfil)" 
+					+ "   VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, objeto.getNome());
 			statement.setString(2, objeto.getCpf());
@@ -32,6 +32,7 @@ public class DaoUsuarioRepository {
 			statement.setString(5, objeto.getSenha());
 			statement.setTimestamp(6, objeto.getDataCadastro());
 			statement.setLong(7, userLogado);
+			statement.setString(8, objeto.getPerfil());
 			
 			statement.execute();
 			connection.commit();
@@ -39,7 +40,7 @@ public class DaoUsuarioRepository {
 		} else {
 			
 			String sql = "UPDATE public.usuario" + 
-					"   SET nome=?, cpf=?, email=?, login=?, senha=?" + 
+					"   SET nome=?, cpf=?, email=?, login=?, senha=?, perfil=?" + 
 					" WHERE id = " + objeto.getId() + "";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, objeto.getNome());
@@ -47,6 +48,7 @@ public class DaoUsuarioRepository {
 			statement.setString(3, objeto.getEmail());
 			statement.setString(4, objeto.getLogin());
 			statement.setString(5, objeto.getSenha());
+			statement.setString(6, objeto.getPerfil());
 			
 			statement.executeUpdate();
 			connection.commit();
@@ -60,7 +62,7 @@ public class DaoUsuarioRepository {
 		Usuario objetoUsuario = new Usuario();
 		
 		String sql = "SELECT "
-				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id " 
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil " 
 				+ " FROM public.usuario"
 				+ " WHERE UPPER(login) = UPPER(?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -74,6 +76,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setEmail(resultado.getString("email"));
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setSenha(resultado.getString("senha"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 		}
 		
 		return objetoUsuario;
@@ -84,7 +87,7 @@ public class DaoUsuarioRepository {
 		Usuario objetoUsuario = new Usuario();
 		
 		String sql = "SELECT "
-				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil" 
 				+ " FROM public.usuario"
 				+ " WHERE UPPER(login) = UPPER(?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -99,6 +102,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setSenha(resultado.getString("senha"));
 			objetoUsuario.setUseradmin(resultado.getBoolean("useradmin"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 		}
 		
 		return objetoUsuario;
@@ -109,7 +113,7 @@ public class DaoUsuarioRepository {
 		Usuario objetoUsuario = new Usuario();
 		
 		String sql = "SELECT "
-				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil" 
 				+ " FROM public.usuario "
 				+ " WHERE UPPER(login) = UPPER(?) "
 				+ " AND useradmin is false "
@@ -126,6 +130,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setEmail(resultado.getString("email"));
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setSenha(resultado.getString("senha"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 		}
 		
 		return objetoUsuario;
@@ -136,7 +141,7 @@ public class DaoUsuarioRepository {
 		Usuario objetoUsuario = new Usuario();
 		
 		String sql = "SELECT "
-				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil" 
 				+ "  FROM public.usuario "
 				+ " WHERE id = ? "
 				+ " AND useradmin is false "
@@ -153,6 +158,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setEmail(resultado.getString("email"));
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setSenha(resultado.getString("senha"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 		}
 		
 		return objetoUsuario;
@@ -163,7 +169,7 @@ public class DaoUsuarioRepository {
 		List<Usuario> listaUsuarios = new ArrayList<>();
 		
 		String sql = "SELECT "
-				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ "id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil" 
 				+ "  FROM public.usuario "
 				+ " WHERE UPPER(nome) LIKE UPPER(?) "
 				+ " AND useradmin is false "
@@ -181,6 +187,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setEmail(resultado.getString("email"));
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setDataCadastro(resultado.getTimestamp("data_cadastro"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 			//objetoUsuario.setSenha(resultado.getString("senha"));
 			
 			listaUsuarios.add(objetoUsuario);
@@ -194,7 +201,7 @@ public class DaoUsuarioRepository {
 		List<Usuario> listaUsuarios = new ArrayList<>();
 		
 		String sql = "SELECT "
-				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id" 
+				+ " id, nome, cpf, email, login, senha, data_cadastro, useradmin, usuario_id, perfil" 
 				+ " FROM public.usuario "
 				+ " WHERE useradmin is false "
 				+ " AND usuario_id = " + userLogado;
@@ -209,6 +216,7 @@ public class DaoUsuarioRepository {
 			objetoUsuario.setEmail(resultado.getString("email"));
 			objetoUsuario.setLogin(resultado.getString("login"));
 			objetoUsuario.setDataCadastro(resultado.getTimestamp("data_cadastro"));
+			objetoUsuario.setPerfil(resultado.getString("perfil"));
 			//objetoUsuario.setSenha(resultado.getString("senha"));
 			
 			listaUsuarios.add(objetoUsuario);

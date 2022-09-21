@@ -15,6 +15,8 @@ public class Usuario extends GenericDomain {
 	
 	private boolean useradmin;
 	
+	private String perfil;
+	
 	public Usuario() {
 		
 	}
@@ -26,6 +28,14 @@ public class Usuario extends GenericDomain {
 			return false;/*Atualiza um id existente*/
 		}
 		return id == null;
+	}
+	
+	public String getPerfil() {
+		return perfil;
+	}
+	
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 	
 	public boolean isUseradmin() {

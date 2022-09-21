@@ -103,6 +103,25 @@
 															</div>
 														</div>
 														
+														<div class="form-group row">
+														      <label for="perfil" class="form-control-label">Perfil:</label>
+														      <div class="col-md-6">
+														      <select id="perfil" class="form-control" required="required"
+														      	name="perfil">
+														        <option selected>[ Selecione um perfil ]</option>
+														        <option value="Administrador">Administrador</option>
+														        <option value="Diretor">Diretor</option>
+														        <option value="Gerente">Gerente</option>
+														        <option value="Atendente">Atendente</option>
+														        <option value="Balconista">Balconista</option>
+														        <option value="Estoquista">Estoquista</option>
+														        <option value="Secretário(a)">Secretário(a)</option>
+														        <option value="Auxiliar">Auxiliar</option>
+														      </select>
+														      </div>
+													    </div>
+													    
+														
 														<div class="form-group">
 													
 														<button type="button" onclick="limparFormulario()" 

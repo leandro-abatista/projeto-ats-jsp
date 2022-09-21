@@ -74,7 +74,7 @@ public class ServletLogin extends HttpServlet {
 					
 					/*Pegando os atributos do objeto usuário e matendo o usuário logado na sessão*/
 					request.getSession().setAttribute("usuario", objetoUsuario.getLogin());
-					request.getSession().setAttribute("isAdmin", objetoUsuario.isUseradmin());
+					request.getSession().setAttribute("perfil", objetoUsuario.getPerfil());
 					
 					if (url == null || url.equals("null")) {
 						url = urlPagPrincipal;
